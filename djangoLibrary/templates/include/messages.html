@@ -1,0 +1,9 @@
+{% if messages %}
+    <div class="toast toast-end toast-start">
+    {% for message in messages %}
+      <div class="alert alert-info">
+        <span>{{ message }}</span>
+      </div>
+    {% endfor %}
+    </div>
+{% endif %}

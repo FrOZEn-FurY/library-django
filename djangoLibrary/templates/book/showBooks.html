@@ -1,0 +1,31 @@
+{% extends 'include/base.html' %}
+
+{% block content %}
+    <h1 class="text-center text-slate-300 text-[3rem]">Books</h1>
+    <section class="flex flex-row flex-wrap gap-4">
+        {% for book in books %}
+        <div class="card bg-primary text-primary-content w-96 shadow-xl m-2">
+          <figure>
+            <img
+                class="w-full"
+                src="{{ book.image.url }}"
+                alt="Book image" />
+          </figure>
+          <div class="card-body">
+            <h2 class="card-title">{{ book.title }}</h2>
+            <p>{{ book.description }}</p>
+            <p>{{ book.author }}</p>
+              <div class="card-action justify-end">
+                  <a href="{% url 'book:editBook' book.id %}" class="btn btn-info">Edit book</a>
+                  <form method="post" action="{% url 'book:deleteBook' book.id %}">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-error">Delete book</button>
+                  </form>
+              </div>
+          </div>
+        </div>
+    {% empty %}
+        <h2 class="text-center text-slate-300 text-[2rem]">No books found.</h2>
+    {% endfor %}
+    </section>
+{% endblock %}
